@@ -9,6 +9,7 @@ const Solving = () => {
   const { ticketCount, setTicketCount } = useContext(TicketContext);
   const navigate = useNavigate();
   const { id } = useParams();
+  const [loading, setLoading] = useState(false)
 
   const [singleTicket, setSingleTicket] = useState({});
   console.log(singleTicket);
@@ -24,7 +25,7 @@ const Solving = () => {
     _id,
   } = singleTicket;
 
-  useEffect(() => {
+  useEffect(() => {    
     fetch(`https://helpdeskticket-backend.onrender.com/api/v1/ticket/getTicket/${id}`)
       .then((res) => res.json())
       .then((data) => setSingleTicket(data.result));
@@ -43,7 +44,7 @@ const Solving = () => {
     };
 
     console.log(resolvedData);
-
+    setLoading(true)
     fetch("https://helpdeskticket-backend.onrender.com/api/v1/ticket/solve", {
       method: "PATCH",
       headers: {
@@ -54,6 +55,7 @@ const Solving = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") {
+          setLoading(false)
           toast.success("ticket resolved successfully");
           console.log("Would normally send email here with body: …")
           setTicketCount(ticketCount + 1);
@@ -63,7 +65,7 @@ const Solving = () => {
       });
   };
   return (
-    <div className="w-full h-full mt-10 flex flex-col items-center text-white gap-5 px-10 overflow-y-scroll hidden-scrollbar pb-28">
+    <div className="w-full h-full flex flex-col items-center text-white sm:px-10 pl-2 overflow-y-scroll hidden-scrollbar pb-24">
       <div className="w-full flex items-start">
         <svg
           onClick={() => navigate("/admin")}
@@ -89,58 +91,63 @@ const Solving = () => {
           </g>
         </svg>
       </div>
-      <span className="text-3xl font-semibold">Solving</span>
+      <span className="sm:text-3xl text-lg font-semibold pb-2">Solving</span>
       <form
         onSubmit={handleSolveSubmit}
         className="w-full flex flex-col justify-between p-5 border rounded bg-transparent border-rgb gap-5"
       >
         <div className="w-full flex flex-col items-start justify-between gap-3">
-          <div className="w-full flex items-center justify-between">
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-sm">CreatedAt</span>
-              <span>{createdAt}</span>
+          <div className="w-full flex sm:flex-row flex-col items-center justify-between sm:gap-0 gap-2">
+            <div className="flex flex-col items-center gap-0 sm:gap-1 sm:border-none border-b sm:w-auto w-full sm:pb-0 pb-2">
+              <span className="text-xs sm:text-sm">CreatedAt</span>
+              <span className="text-sm sm:text-base">{createdAt}</span>
             </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-sm">CreatedBy</span>
-              <span>{createdBy}</span>
+            <div className="flex flex-col items-center gap-0 sm:gap-1 sm:border-none border-b sm:w-auto w-full sm:pb-0 pb-2">
+              <span className="text-xs sm:text-sm">CreatedBy</span>
+              <span className="text-sm sm:text-base">{createdBy}</span>
             </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-sm">Title</span>
-              <span>{title}</span>
+            <div className="flex flex-col items-center gap-0 sm:gap-1 sm:border-none border-b sm:w-auto w-full sm:pb-0 pb-2">
+              <span className="text-xs sm:text-sm">Title</span>
+              <span className="text-sm sm:text-base">{title}</span>
             </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-sm">Status</span>
+            <div className="flex flex-col items-center gap-0 sm:gap-1 sm:border-none border-b sm:w-auto w-full sm:pb-0 pb-2">
+              <span className="text-xs sm:text-sm">Status</span>
               <span
                 className={`${status === "all" ? "text-white" : ""} ${
                   status === "new" ? "text-cyan-600" : ""
                 } ${status === "pending" ? "text-yellow-600" : ""} ${
                   status === "resolved" ? "text-green-600" : ""
-                }`}
+                }text-sm sm:text-base`}
               >
                 {status}
               </span>
             </div>
           </div>
           <div className="w-full flex items-center">
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-sm">Description</span>
-              <span className="text-center text-[#d9e8e896] text-lg">
+            <div className="w-full flex flex-col items-center gap-1">
+              <span className="sm:text-xl text-sm pt-3">Description</span>
+              <span className="text-center text-[#d9e8e896] sm:text-base text-sm">
                 {description}
               </span>
             </div>
           </div>
         </div>
         <div className="w-full flex flex-col items-start justify-between gap-2">
-          <span className="text-lg">Answer</span>
+          <span className="sm:text-lg text-sm">Answer</span>
           <textarea
             type="text"
             name="solved"
             id=""
-            className="w-full bg-transparent border-rgb px-5 pt-2 h-24"
+            className="w-full bg-transparent border-rgb px-5 pt-2 sm:h-24 h-16"
           />
         </div>
         <div className="w-full flex justify-end">
-          <button className="border-rgb bg-transparent px-5 py-2 font-medium">
+          <button disabled={loading === true} className="border-rgb bg-transparent sm:px-5 sm:py-2 px-3 py-1 rounded sm:text-base text-sm font-medium disabled:bg-[#64748b] disabled:cursor-not-allowed text-white gap-2 flex items-center">
+          {loading === true ? (
+          <span className="loading loading-spinner loading-md"></span>
+        ) : (
+          ""
+        )}
             Solve
           </button>
         </div>

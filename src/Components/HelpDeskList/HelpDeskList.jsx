@@ -7,10 +7,11 @@ const HelpDeskList = () => {
   const { tickets, loading, setFilter, filter } = useContext(TicketContext);
   console.log(tickets);
   return (
-    <div className="w-full  flex flex-col items-center mt-10 gap-5 ">
-      <span className="text-3xl text-white pb-5">Ticket List </span>
+    <div className="w-full h-full flex flex-col items-center gap-5">
+      <span className="sm:text-3xl text-lg text-white pb-5">Ticket List </span>
+      <div className="w-full flex justify-end pr-4">
       <select
-        className={`select  ml-[80%] ${filter === "all" ? "bg-white" : ""} ${
+        className={`select border-rgb rounded ${filter === "all" ? "bg-transparent" : ""} ${
           filter === "new" ? "bg-cyan-600" : ""
         } ${filter === "pending" ? "bg-yellow-600" : ""} ${
           filter === "solved" ? "bg-green-600" : ""
@@ -32,7 +33,8 @@ const HelpDeskList = () => {
           Solved
         </option>
       </select>
-      <div className="w-full grid gap-5 px-10 overflow-y-scroll  mb-10 hidden-scrollbar">
+      </div>
+      <div className="w-full grid gap-5 pl-2 overflow-y-scroll pb-24 hidden-scrollbar">
         {loading ? (
           <>
             <h1>Loading...</h1>
@@ -41,7 +43,7 @@ const HelpDeskList = () => {
           <>
             {tickets.length < 1 ? (
               <div>
-                <h1 className="text-white text-3xl text-center">
+                <h1 className="text-white text-lg sm:text-3xl text-center">
                   No Ticket found. 
                   Please reload this page to view.
                 </h1>

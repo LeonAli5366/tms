@@ -22,7 +22,7 @@ const SignUp = () => {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-
+    setLoading(true);
     fetch("https://helpdeskticket-backend.onrender.com/api/v1/user/signup", {
       method: "POST",
       headers: {
@@ -33,18 +33,21 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") {
+          setLoading(false);
           toast.success("User created successfully");
-          console.log('')
+          console.log("");
           navigate("/login");
         } else {
+          setLoading(false);
           setError(data?.error);
+          console.log(data?.error)
         }
       });
   };
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-1/3 mx-auto mt-10 flex flex-col items-center gap-2"
+      className="max-w-[600px] w-full px-5 mx-auto mt-10 flex flex-col items-center gap-2"
     >
       <span className="text-3xl text-white font-semibold pb-5">Sign up</span>
       <div className="w-full flex flex-col items-start gap-1">
@@ -83,7 +86,7 @@ const SignUp = () => {
           className="w-full bg-transparent border py-3 px-3 text-white"
         />
       </div>
-      <h1 className="text-red-600">{error}</h1>
+      <h1 className="text-red-600 text-balance">{error}</h1>
       <Link to={`/login`}>
         <h1 className="text-white mt-5 text-start">
           {`Don't have an account`}{" "}
@@ -91,9 +94,15 @@ const SignUp = () => {
         </h1>
       </Link>
       <button
+        disabled={loading === true}
         type="submit"
-        className="bg-slate-100 hover:bg-slate-200 px-7 py-2 rounded mt-5"
+        className="bg-slate-100 hover:bg-slate-200 px-7 disabled:bg-[#64748b] disabled:cursor-not-allowed py-2 rounded mt-5 text-black font-medium gap-2 flex items-center"
       >
+        {loading === true ? (
+          <span className="loading loading-spinner loading-md"></span>
+        ) : (
+          ""
+        )}
         Sign Up
       </button>
     </form>

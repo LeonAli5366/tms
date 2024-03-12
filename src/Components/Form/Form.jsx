@@ -63,11 +63,11 @@ export const Form = () => {
     <div>
       <form
         onSubmit={handleSubmit}
-        className={`w-1/2 h-1/2 mx-auto mt-10 flex flex-col items-center gap-2 ${
+        className={`max-w-[600px] w-full px-5 mx-auto mt-10 flex flex-col items-center gap-2 ${
           user.role === "admin" ? "hidden" : ""
         }`}
       >
-        <span className="text-3xl text-white font-semibold pb-5">
+        <span className="sm:text-3xl text-lg text-white font-semibold pb-5">
           Help Desk
         </span>
 
@@ -76,7 +76,7 @@ export const Form = () => {
         </span>
 
         <div className="w-full flex flex-col items-start gap-1">
-          <label htmlFor="name" className="text-white text-lg">
+          <label htmlFor="name" className="text-white sm:text-lg text-sm after:content-['*'] after:pl-1">
             Name
           </label>
           <input
@@ -85,12 +85,12 @@ export const Form = () => {
             defaultValue={user?.name}
             name=""
             id="name"
-            className="w-full bg-transparent border py-3 px-3 text-white"
+            className="w-full bg-transparent border sm:py-3 sm:px-3 py-2 px-2 text-white"
             required
           />
         </div>
         <div className={`w-full flex flex-col items-start gap-1 `}>
-          <label htmlFor="email" className="text-white text-lg">
+          <label htmlFor="email" className="text-white sm:text-lg text-sm after:content-['*'] after:pl-1">
             Email
           </label>
           <input
@@ -99,12 +99,12 @@ export const Form = () => {
             name=""
             defaultValue={user?.email}
             id="email"
-            className="w-full bg-transparent border py-3 px-3 text-white"
+            className="w-full bg-transparent border sm:py-3 sm:px-3 py-2 px-2 text-white"
             required
           />
         </div>
         <div className="w-full flex flex-col items-start gap-1">
-          <label htmlFor="issue" className="text-white text-lg">
+          <label htmlFor="issue" className="text-white sm:text-lg text-sm after:content-['*'] after:pl-1">
             Title
           </label>
           <input
@@ -112,12 +112,12 @@ export const Form = () => {
             type="text"
             name=""
             id="issue"
-            className="w-full bg-transparent border py-3 px-3 text-white"
+            className="w-full bg-transparent border sm:py-3 sm:px-3 py-2 px-2 text-white"
             required
           />
         </div>
         <div className="w-full flex flex-col items-start gap-1">
-          <label htmlFor="des" className="text-white text-lg">
+          <label htmlFor="des" className="text-white sm:text-lg text-sm after:content-['*'] after:pl-1">
             Description
           </label>
           <textarea
@@ -125,7 +125,7 @@ export const Form = () => {
             type="text"
             name=""
             id="des"
-            className="w-full bg-transparent border py-3 px-3 text-white"
+            className="w-full bg-transparent border sm:py-3 sm:px-3 py-2 px-2 text-white"
             required
           />
         </div>

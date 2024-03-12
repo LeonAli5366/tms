@@ -19,7 +19,7 @@ const ViewDetails = () => {
   }, [id]);
 
   return (
-    <div className="w-full h-full mt-10 flex flex-col items-center text-white gap-5 px-10  overflow-y-scroll hidden-scrollbar pb-28">
+    <div className="w-full h-full mt-10 flex flex-col items-center text-white gap-5 sm:px-10 pl-2  overflow-y-scroll hidden-scrollbar pb-28">
       <div className="w-full flex items-start">
         <svg
           onClick={() => navigate("/list")}
@@ -45,26 +45,27 @@ const ViewDetails = () => {
           </g>
         </svg>
       </div>
-      <span className="text-3xl font-semibold">Ticket Overview</span>
+      <span className="sm:text-3xl text-lg font-semibold">Ticket Overview</span>
       <div className="w-full flex flex-col justify-between p-5 border rounded bg-transparent border-rgb gap-5">
+        {/* box */}
         <div className="w-full flex flex-col items-start justify-between gap-3">
-          <div className="w-full flex items-center justify-between">
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-sm">CreatedAt</span>
-              <span>{createdAt}</span>
+          <div className="w-full flex sm:flex-row flex-col items-center justify-between sm:gap-0 gap-2">
+            <div className="flex flex-col items-center gap-0 sm:gap-1 border-b sm:w-auto w-full sm:pb-0 pb-2">
+              <span className="text-xs sm:text-sm">CreatedAt</span>
+              <span className="text-sm sm:text-base">{createdAt}</span>
             </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-sm">CreatedBy</span>
-              <span>{createdBy}</span>
+            <div className="flex flex-col items-center gap-0 sm:gap-1 border-b sm:w-auto w-full sm:pb-0 pb-2">
+              <span className="text-xs sm:text-sm">CreatedBy</span>
+              <span className="text-sm sm:text-base">{createdBy}</span>
             </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-sm">Title</span>
-              <span>{title}</span>
+            <div className="flex flex-col items-center gap-0 sm:gap-1 border-b sm:w-auto w-full sm:pb-0 pb-2">
+              <span className="text-xs sm:text-sm">Title</span>
+              <span className="text-sm sm:text-base">{title}</span>
             </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-sm">Status</span>
+            <div className="flex flex-col items-center gap-0 sm:gap-1 border-b sm:w-auto w-full sm:pb-0 pb-2">
+              <span className="text-xs sm:text-sm">Status</span>
               <span
-                className={`${status === "all" ? "text-white" : ""} ${
+                className={`sm:text-base text-sm${status === "all" ? "text-white" : ""} ${
                   status === "new" ? "text-cyan-600" : ""
                 } ${status === "pending" ? "text-yellow-600" : ""} ${
                   status === "resolved" ? "text-green-600" : ""
@@ -76,8 +77,8 @@ const ViewDetails = () => {
           </div>
           <div className="w-full flex items-center">
             <div className="flex flex-col items-start gap-1 text-start">
-              <span className="text-xl mt-3">Description</span>
-              <span className="text-center text-[#d9e8e896]">
+              <span className="sm:text-xl text-sm pt-3">Description</span>
+              <span className="text-center text-[#d9e8e896] sm:text-base text-sm">
                 {description}
               </span>
             </div>
